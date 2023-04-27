@@ -19,8 +19,10 @@ def tekrar():
     while  islem.isdigit():
         islem = input(Fore.YELLOW+"Tekrar işlem yapmak ister misiniz?(E/H)")
     if islem == "e" or islem == "E":
+        os.system("cls")
         menu()
     elif islem == "h" or islem =="H":
+        os.system("cls")
         print("Görüşmek üzere...")
     else:
         print(Fore.RED+"Yanlış işlem seçimi (E/H)")
@@ -31,12 +33,15 @@ def menu():
     
     islem = input(Fore.YELLOW+"Lütfen İşlem seçiniz:\n1.)Mağaza\n2.)Sepetim\n3.)Kategoriler\n-->")
     if islem == "1":
+       os.system("cls")
        magaza()
 
     elif islem == "2":
+       os.system("cls")
        sepetim()
 
     elif islem == "3":
+       os.system("cls")
        kategori()
     else:
         print(Fore.RED+"Doğru işlem giriniz")
@@ -94,6 +99,7 @@ def sepetim():
                 os.system("cls")
                 
         elif sepetislem == "4":
+            os.system("cls")
             menu()  
             
                                
@@ -111,6 +117,7 @@ def kategori():
             kategorisecin = input(Fore.RED+"Bir kategori seçin(isim)(Menüye Dön:Q)\n-->")
 
     if kategorisecin.upper() == "Q":
+        os.system("cls")
         menu()
     while  kategorisecin.isdigit():
          kategorisecin = input(Fore.RED+"Lütfen isim olarak girin\n-->")
