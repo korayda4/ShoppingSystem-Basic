@@ -3,8 +3,8 @@ from colorama import Fore
 import os
 import time
 
-urun = {"mouse":["mouse",50,"PC"],"mousepad":["mousepad",25,"PC"],"kulaklık":["kulaklık",200,"PC"],"klavye":["klavye",100,"PC"],
-        "soğutucu":["soğutucu",300,"PC"],"monitör":["monitör",1100,"PC"],"deri mont":["deri mont",500,"TEKSTIL"],"ekran kartı":["ekran kartı",12000,"PC"],"araba":["araba",7512000,"ARABA"],"telefon":["telefon",28000,"TEKNOLOJI"]
+urun = {"mouse":["mouse",50,"PC",1],"mousepad":["mousepad",25,"PC",1],"kulaklık":["kulaklık",200,"PC",1],"klavye":["klavye",100,"PC",1],
+        "soğutucu":["soğutucu",300,"PC",1],"monitör":["monitör",1100,"PC",1],"deri mont":["deri mont",500,"TEKSTIL",1],"ekran kartı":["ekran kartı",12000,"PC",1],"araba":["araba",7512000,"ARABA",1],"telefon":["telefon",28000,"TEKNOLOJI",1]
         }
 urunonly = urun.copy()
 alınacak = ""
@@ -96,7 +96,7 @@ def menu():
 def magaza():
     j = 1
     for i in urun.values():       
-        print(Fore.BLUE+f"{j}.)Ürün:",i[0],f"Fiyatı: {i[1]}TL | Ürün Kategorisi: {i[2]}")
+        print(Fore.BLUE+f"{j}.)Ürün:",i[0],f"| Fiyatı: {i[1]}TL | Ürün Kategorisi: {i[2]} | Ürün Stok Adedi: {i[3]}")
         j += 1
     alınacak = input(Fore.GREEN+"Satın almak istediğiniz ürünün ismini girin(Menüye Dön:Q)\n-->")
     if alınacak.upper() == "Q":
@@ -205,7 +205,6 @@ for i in "AcunMedyaAkademi Mağazasına hoşgeldin!              ":
     print(Fore.CYAN+text)
     time.sleep(0.05)
     os.system("cls")
-
 
 menu()
 
