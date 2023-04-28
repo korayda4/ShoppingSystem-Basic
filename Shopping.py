@@ -47,7 +47,12 @@ def tekrar():
         menu()
     elif islem == "h" or islem =="H":
         os.system("cls")
-        print("Görüşmek üzere...")
+        read = ""
+        for i in "Görüşmek üzere...        ":
+            read = read+i
+            print(read)
+            time.sleep(0.05)
+            os.system("cls")
     else:
         print(Fore.RED+"Yanlış işlem seçimi (E/H)")
         tekrar()
@@ -71,8 +76,12 @@ def menu():
         os.system("cls")
         urunolustur()
     else:
-        print(Fore.RED+"Doğru işlem giriniz")
+        os.system("cls")
+        print(Fore.RED+"Yanlış İşlem girildi.Lütfen dikkat edin!")
+        time.sleep(1.5)
+        os.system("cls")
         menu()
+        
 
 #Mağazadaki tüm ürünleri göster
 def magaza():
@@ -179,6 +188,13 @@ def kategori():
         print(Fore.RED+"Aradığın kategori bulunmuyor!")
         tekrar()
 
-print(Fore.YELLOW+"AcunMedyaAkademi Mağazasına Hoşgeldiniz!\n")
+text = ""
+for i in "AcunMedyaAkademi Mağazasına hoşgeldin!              ":
+    text = text+i
+    print(Fore.CYAN+text)
+    time.sleep(0.05)
+    os.system("cls")
+
+
 menu()
 
