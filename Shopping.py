@@ -12,6 +12,8 @@ kategoriler = ["PC","TEKSTIL","TEKNOLOJI","ARABA"]
 sepet = []
 
 islem = ""
+
+#Ürün oluştur
 def urunolustur():
     global yeniurun
     yeniurun = input(Fore.GREEN+"Yeni ürün ismini girin\n-->")
@@ -71,6 +73,7 @@ def menu():
     else:
         print(Fore.RED+"Doğru işlem giriniz")
         menu()
+
 #Mağazadaki tüm ürünleri göster
 def magaza():
     j = 1
@@ -134,7 +137,6 @@ def sepetim():
 
 #Kategorileri listele
 def kategori():
-    print(urun)
     j = 1
     for i in kategoriler:
         print(Fore.BLUE+f"{j}.) Kategori :",i)
@@ -161,7 +163,6 @@ def kategori():
             okay = True
         
     if okay:
-        print("Work çalışmalı")
         alınacak = input(Fore.GREEN+"Satın almak istediğiniz ürünün ismini girin\n-->").upper()
         while  alınacak.isnumeric():
             alınacak = input(Fore.RED+"Lütfen İSİM girin\n-->")
