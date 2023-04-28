@@ -16,27 +16,36 @@ islem = ""
 #Ürün oluştur
 def urunolustur():
     global yeniurun
-    yeniurun = input(Fore.GREEN+"Yeni ürün ismini girin\n-->")
-    while yeniurun.isdigit():
-        yeniurun = input(Fore.RED+"Lütfen isim girin!\n-->")
-        
-    yeniücret = input(Fore.GREEN+"Ücreti girin!\n-->")
-    while not yeniücret.isdigit():
-        yeniücret = input(Fore.RED+"Lütfen sayı girin!\n-->")
-          
-    yenikategori = input(Fore.GREEN+"Kategorisini girin\n-->").upper()
-    for i in kategoriler:
-            while yenikategori.upper() == i:
-               yenikategori = input(Fore.RED+"Böyle bir kategori bulunuyor , Tekrar deneyin\n-->").upper()
+    sifre = input(Fore.RED+"Personel Şifresini giriniz(Menüye Dön:Q)\n-->")
+    if sifre.upper() == "Q":
+        os.system("cls")
+        print("Menüye Aktarılıyorsunuz")
+        time.sleep(1)
+        menu()
+    if sifre == "123456":
+        os.system("cls")
+        yeniurun = input(Fore.GREEN+"Yeni ürün ismini girin\n-->")
+        while yeniurun.isdigit():
+            yeniurun = input(Fore.RED+"Lütfen isim girin!\n-->")
+            
+        yeniücret = input(Fore.GREEN+"Ücreti girin!\n-->")
+        while not yeniücret.isdigit():
+            yeniücret = input(Fore.RED+"Lütfen sayı girin!\n-->")
+            
+        yenikategori = input(Fore.GREEN+"Kategorisini girin\n-->").upper()
+        for i in kategoriler:
+                while yenikategori.upper() == i:
+                    yenikategori = input(Fore.RED+"Böyle bir kategori bulunuyor , Tekrar deneyin\n-->").upper()
 
-    while not yenikategori.isalpha():
-        yenikategori = input(Fore.RED+"Lütfen kategori girin!\n-->")
-        
-    urun[yeniurun]= [yeniurun,yeniücret,yenikategori]
-    urunonly[yeniurun]=[yeniurun,yeniücret,yenikategori]
-    kategoriler.append(yenikategori.upper())
-    tekrar()
-        
+        while not yenikategori.isalpha():
+            yenikategori = input(Fore.RED+"Lütfen kategori girin!\n-->")
+            
+        urun[yeniurun]= [yeniurun,yeniücret,yenikategori]
+        urunonly[yeniurun]=[yeniurun,yeniücret,yenikategori]
+        kategoriler.append(yenikategori.upper())
+        tekrar()
+    else:
+        urunolustur() 
 #Tekrar işlem yapılsın mı?
 def tekrar():
     islem = input(Fore.YELLOW+"Tekrar işlem yapmak ister misiniz?(E/H)\n-->")
@@ -59,7 +68,7 @@ def tekrar():
         
 #Anamenü
 def menu():
-    
+    os.system("cls")
     islem = input(Fore.YELLOW+"Lütfen İşlem seçiniz:\n1.)Mağaza\n2.)Sepetim\n3.)Kategoriler\n4.)Ürün oluştur\n-->")
     if islem == "1":
        os.system("cls")
@@ -111,8 +120,9 @@ def sepetim():
         print(Fore.CYAN+f"{j}.)Ürün:",i,f"Fiyatı {urunonly[i][1]}TL")
         j +=1
         toplam = int(urunonly[i][1]) + toplam
-    print(f"Toplam Fiyat:{toplam}TL")
+    
     if not len(sepet) <= 0:
+        print(f"Toplam Fiyat:{toplam}TL")
         sepetislem = input(Fore.YELLOW+"Sepet işlemleri:\n1)Sepeti boşalt\n2)Ürün sil\n3)Satın alımı tamamla\n4)Ana menüye dön\n-->")
         while not sepetislem.isdigit():
             sepetislem = input(Fore.RED+"İşlem numarası giriniz:\n1)Sepeti boşalt\n2)Ürün sil\n3)Satın alımı tamamla\n4)Ana menüye dön\n-->")
@@ -140,7 +150,8 @@ def sepetim():
         elif sepetislem == "4":
             os.system("cls")
             menu()  
-            
+    else:
+        print(Fore.RED+"Sepette ürün bulunmuyor!")       
                                
     tekrar()
 
@@ -166,7 +177,7 @@ def kategori():
     okay = False
     for i in urun.values():        
         if kategorisecin.upper() == i[2]:           
-            print(Fore.BLUE+f"{j}.)Ürün:",i[0].capitalize())
+            print(Fore.BLUE+f"{j}.)Ürün:",i[0])
             j +=1
             
             okay = True
