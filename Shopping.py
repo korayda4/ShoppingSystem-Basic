@@ -25,6 +25,9 @@ def urunolustur():
     if sifre == "123456":
         os.system("cls")
         yeniurun = input(Fore.GREEN+"Yeni ürün ismini girin\n-->")
+        for i in urun.values():
+                while yeniurun == i[0]:
+                    yeniurun = input(Fore.RED+"Böyle bir ürün bulunuyor , Tekrar deneyin\n-->").upper()
         while yeniurun.isdigit():
             yeniurun = input(Fore.RED+"Lütfen isim girin!\n-->")
             
@@ -38,10 +41,10 @@ def urunolustur():
                     yenikategori = input(Fore.RED+"Böyle bir kategori bulunuyor , Tekrar deneyin\n-->").upper()
 
         while not yenikategori.isalpha():
-            yenikategori = input(Fore.RED+"Lütfen kategori girin!\n-->")
-            
-        urun[yeniurun]= [yeniurun,yeniücret,yenikategori]
-        urunonly[yeniurun]=[yeniurun,yeniücret,yenikategori]
+            yenikategori = input(Fore.RED+"Lütfen kategori girin!\n-->").upper()
+        yeniadet = 1    
+        urun[yeniurun]= [yeniurun,yeniücret,yenikategori,yeniadet]
+        urunonly[yeniurun]=[yeniurun,yeniücret,yenikategori,yeniadet]
         kategoriler.append(yenikategori.upper())
         tekrar()
     else:
@@ -68,8 +71,16 @@ def tekrar():
         
 #Anamenü
 def menu():
-    os.system("cls")
-    islem = input(Fore.YELLOW+"Lütfen İşlem seçiniz:\n1.)Mağaza\n2.)Sepetim\n3.)Kategoriler\n4.)Ürün oluştur\n-->")
+                        
+    textingmenu = ""
+    for i in "Lütfen İşlem seçiniz:\n1.)Mağaza\n2.)Sepetim\n3.)Kategoriler\n4.)Ürün oluştur\n>-------------<":
+        textingmenu = textingmenu + i
+        print(Fore.YELLOW+textingmenu)
+        time.sleep(0.01)
+        if not i == "<":
+            os.system("cls")
+
+    islem = input("-->")
     if islem == "1":
        os.system("cls")
        magaza()
@@ -94,10 +105,25 @@ def menu():
 
 #Mağazadaki tüm ürünleri göster
 def magaza():
+    max_name_len = max(len(i[0]) for i in urun.values())
+    max_price_len = max(len(str(i[1])) for i in urun.values())
+    max_cat_len = max(len(i[2]) for i in urun.values())
+    max_stock_len = max(len(str(i[3])) for i in urun.values())
+
     j = 1
-    for i in urun.values():       
-        print(Fore.BLUE+f"{j}.)Ürün:",i[0],f"| Fiyatı: {i[1]}TL | Ürün Kategorisi: {i[2]} | Ürün Stok Adedi: {i[3]}")
+    for i in urun.values():
+        name_padding = ' ' * (max_name_len - len(i[0]))
+        price_padding = ' ' * (max_price_len - len(str(i[1])) + 2)
+        cat_padding = ' ' * (max_cat_len - len(i[2]))
+        stock_padding = ' ' * (max_stock_len - len(str(i[3])))
+        if j < 10:
+            print(Fore.BLUE + f" {j}.) Ürün: {i[0]}{name_padding} | Fiyatı:{price_padding}{i[1]}TL | Kategori: {i[2]}{cat_padding} | Stok Adeti: {i[3]}{stock_padding}")
+        else:
+            print(Fore.BLUE + f"{j}.) Ürün: {i[0]}{name_padding} | Fiyatı:{price_padding}{i[1]}TL | Kategori: {i[2]}{cat_padding} | Stok Adeti: {i[3]}{stock_padding}")
         j += 1
+
+
+
     alınacak = input(Fore.GREEN+"Satın almak istediğiniz ürünün ismini girin(Menüye Dön:Q)\n-->")
     if alınacak.upper() == "Q":
         menu()
