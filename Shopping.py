@@ -4,8 +4,9 @@ import os
 import time
 
 urun = {"mouse":["mouse",50,"PC",1],"mousepad":["mousepad",25,"PC",1],"kulaklık":["kulaklık",200,"PC",1],"klavye":["klavye",100,"PC",1],
-        "soğutucu":["soğutucu",300,"PC",1],"monitör":["monitör",1100,"PC",1],"deri mont":["deri mont",500,"TEKSTIL",1],"ekran kartı":["ekran kartı",12000,"PC",1],"araba":["araba",7512000,"ARABA",1],"telefon":["telefon",28000,"TEKNOLOJI",1]
+        "soğutucu":["soğutucu",300,"PC",1],"monitör":["monitör",1100,"PC",1],"deri mont":["deri mont",500,"TEKSTIL",1],"ekran kartı":["ekran kartı",12000,"PC",1],"araba":["araba",7512000,"ARABA",1],"telefon":["telefon",28000,"TEKNOLOJI",1],"Nisantası Universitesi":["Nisantası Universitesi",1000000000000000000000000,"UNIVERSITE",1]
         }
+
 urunonly = urun.copy()
 alınacak = ""
 kategoriler = ["PC","TEKSTIL","TEKNOLOJI","ARABA"]
@@ -49,6 +50,7 @@ def urunolustur():
         tekrar()
     else:
         urunolustur() 
+
 #Tekrar işlem yapılsın mı?
 def tekrar():
     islem = input(Fore.YELLOW+"Tekrar işlem yapmak ister misiniz?(E/H)\n-->")
@@ -76,7 +78,7 @@ def menu():
     for i in "Lütfen İşlem seçiniz:\n1.)Mağaza\n2.)Sepetim\n3.)Kategoriler\n4.)Ürün oluştur\n>-------------<":
         textingmenu = textingmenu + i
         print(Fore.YELLOW+textingmenu)
-        time.sleep(0.01)
+        time.sleep(0.05)
         if not i == "<":
             os.system("cls")
 
@@ -102,24 +104,23 @@ def menu():
         os.system("cls")
         menu()
         
-
 #Mağazadaki tüm ürünleri göster
 def magaza():
-    max_name_len = max(len(i[0]) for i in urun.values())
-    max_price_len = max(len(str(i[1])) for i in urun.values())
-    max_cat_len = max(len(i[2]) for i in urun.values())
-    max_stock_len = max(len(str(i[3])) for i in urun.values())
+    max_isim = max(len(i[0]) for i in urun.values())
+    max_fiyat = max(len(str(i[1])) for i in urun.values())
+    max_kategori = max(len(i[2]) for i in urun.values())
+    max_stok = max(len(str(i[3])) for i in urun.values())
 
     j = 1
     for i in urun.values():
-        name_padding = ' ' * (max_name_len - len(i[0]))
-        price_padding = ' ' * (max_price_len - len(str(i[1])) + 2)
-        cat_padding = ' ' * (max_cat_len - len(i[2]))
-        stock_padding = ' ' * (max_stock_len - len(str(i[3])))
+        isim_padding = ' ' * (max_isim - len(i[0]))
+        fiyat_padding = ' ' * (max_fiyat - len(str(i[1])) + 2)
+        kategori_padding = ' ' * (max_kategori - len(i[2]))
+        stok_padding = ' ' * (max_stok - len(str(i[3])))
         if j < 10:
-            print(Fore.BLUE + f" {j}.) Ürün: {i[0]}{name_padding} | Fiyatı:{price_padding}{i[1]}TL | Kategori: {i[2]}{cat_padding} | Stok Adeti: {i[3]}{stock_padding}")
+            print(Fore.BLUE + f" {j}.) Ürün: {i[0]}{isim_padding} | Fiyatı:{fiyat_padding}{i[1]}TL | Kategori: {i[2]}{kategori_padding} | Stok Adeti: {i[3]}{stok_padding}")
         else:
-            print(Fore.BLUE + f"{j}.) Ürün: {i[0]}{name_padding} | Fiyatı:{price_padding}{i[1]}TL | Kategori: {i[2]}{cat_padding} | Stok Adeti: {i[3]}{stock_padding}")
+            print(Fore.BLUE + f"{j}.) Ürün: {i[0]}{isim_padding} | Fiyatı:{fiyat_padding}{i[1]}TL | Kategori: {i[2]}{kategori_padding} | Stok Adeti: {i[3]}{stok_padding}")
         j += 1
 
 
