@@ -3,8 +3,8 @@ from colorama import Fore
 import os
 import time
 
-urun = {"mouse":["mouse",50,"PC",1],"mousepad":["mousepad",25,"PC",1],"kulaklık":["kulaklık",200,"PC",1],"klavye":["klavye",100,"PC",1],
-        "soğutucu":["soğutucu",300,"PC",1],"monitör":["monitör",1100,"PC",1],"deri mont":["deri mont",500,"TEKSTIL",1],"ekran kartı":["ekran kartı",12000,"PC",1],"araba":["araba",7512000,"ARABA",1],"telefon":["telefon",28000,"TEKNOLOJI",1],"Nisantası Universitesi":["Nisantası Universitesi",1000000000000000000000000,"UNIVERSITE",1]
+urun = {"mouse":["mouse",50,"PC",5,0],"mousepad":["mousepad",25,"PC",15,0],"kulaklık":["kulaklık",200,"PC",50,0],"klavye":["klavye",100,"PC",15,0],
+        "soğutucu":["soğutucu",300,"PC",10,0],"monitör":["monitör",1100,"PC",5,0],"deri mont":["deri mont",500,"TEKSTIL",5,0],"ekran kartı":["ekran kartı",12000,"PC",1,0],"araba":["araba",7512000,"ARABA",1,0],"telefon":["telefon",28000,"TEKNOLOJI",1,0],"Nisantası Universitesi":["Nisantası Universitesi",1000000000000000000000000,"UNIVERSITE",1,0]
         }
 
 urunonly = urun.copy()
@@ -37,7 +37,7 @@ def urunolustur():
             yeniurun = input(Fore.RED+"Lütfen isim girin!\n-->")
             
         yeniücret = input(Fore.GREEN+"Ücreti girin!\n-->")
-        while yeniücret  <= 0:
+        while int(yeniücret)  <= 0:
             yeniücret = input(Fore.GREEN+"En az 1TL girin!\n-->")
 
             
@@ -54,8 +54,8 @@ def urunolustur():
         while not yenikategori.isalpha():
             yenikategori = input(Fore.RED+"Lütfen kategori girin!\n-->").upper()
         yeniadet = 1    
-        urun[yeniurun]= [yeniurun,yeniücret,yenikategori,yeniadet]
-        urunonly[yeniurun]=[yeniurun,yeniücret,yenikategori,yeniadet]
+        urun[yeniurun]= [yeniurun,yeniücret,yenikategori,yeniadet,0]
+        urunonly[yeniurun]=[yeniurun,yeniücret,yenikategori,yeniadet,0]
         kategoriler.append(yenikategori.upper())
         tekrar()
     else:
@@ -148,7 +148,29 @@ def magaza():
     while not alınacak in urun:
         if alınacak not in urun:
                 alınacak = input(Fore.RED+"Lütfen doğru ürün girin\n-->")
-    urun.pop(alınacak)
+
+    kacadet = input(Fore.YELLOW+"Kaç adet almak istiyorsunuz?\n-->")
+    while kacadet.isalpha():
+        kacadet = input(Fore.YELLOW+"Sayı giriniz!\n-->")
+
+    while urun[alınacak][3] <= int(kacadet)-1:
+        kacadet = input(Fore.YELLOW+f"Stok yetersiz lütfen {urun[alınacak][3]} tane'den az veya eşit bir sayı giriniz!\n-->")
+    
+    while int(kacadet) <= 0:
+        kacadet = input(Fore.YELLOW+"En az 1 adet girilebilir!\n-->")
+
+    urun[alınacak][3] = int(urun[alınacak][3]) - int(kacadet)
+    
+    urunonly[alınacak][4] = int(urun[alınacak][4]) + int(kacadet)
+    
+    
+    
+
+    if urun[alınacak][3] <= 0:
+        urun.pop(alınacak)
+
+
+    
     sepet.append(alınacak)
     print(Fore.GREEN+f"{alınacak} Başarıyla sepete eklendi.")
     
@@ -159,7 +181,7 @@ def sepetim():
     j = 1
     toplam = 0
     for i in sepet:
-        print(Fore.CYAN+f"{j}.)Ürün:",i,f"Fiyatı {urunonly[i][1]}TL")
+        print(Fore.CYAN+f"{j}.)Ürün:",i,f"Fiyatı {urunonly[i][1]}TL Adeti:{urunonly[i][4]}")
         j +=1
         toplam = int(urunonly[i][1]) + toplam
     
@@ -171,14 +193,20 @@ def sepetim():
         if sepetislem == "1":
             for i in sepet:
                 urun[i]=urunonly[i]
+                urun[i][3]=urunonly[i][4]
+                urunonly[i][4] = 0
             sepet.clear()
             print(Fore.GREEN+"Başarıyla Temizlendi")
+
         elif sepetislem == "2":
             sil = input("Silinecek ürünün ismini giriniz\n-->")
             silici = sepet.index(sil)
             sepet.pop(silici)
             urun[sil]=urunonly[sil]
+            urun[sil][3]=urunonly[sil][4]
+            urunonly[i][4] = 0
             print(Fore.GREEN+"Başarıyla Silindi!")
+
         elif sepetislem == "3":
             read = ""
             for i in Fore.GREEN+"Satın alımınız için teşekkürler...             ":
@@ -187,7 +215,7 @@ def sepetim():
                 time.sleep(0.08)
                 os.system("cls")
                 sepet.clear()
-                ks = 0
+                
                 
         elif sepetislem == "4":
             os.system("cls")
@@ -223,9 +251,9 @@ def kategori():
             j +=1
             
             okay = True
-        
+      
     if okay:
-        alınacak = input(Fore.GREEN+"Satın almak istediğiniz ürünün ismini girin\n-->").upper()
+        alınacak = input(Fore.GREEN+"Satın almak istediğiniz ürünün ismini girin\n-->")
         while  alınacak.isnumeric():
             alınacak = input(Fore.RED+"Lütfen İSİM girin\n-->")
         for i in urun.values():
@@ -233,16 +261,20 @@ def kategori():
                 work = True
         
     if work:
-        urun.pop(alınacak.lower())
+        urun[alınacak][3] = int(urun[alınacak][3]) - 1
+    
+        urunonly[alınacak][4] = int(urun[alınacak][4]) + 1 
+
+        if urun[alınacak][3] <= 0:
+            urun.pop(alınacak) 
+        
         sepet.append(alınacak.lower())
         print(Fore.GREEN+f"{alınacak} Başarıyla sepete eklendi.")
         tekrar()
-    else:
-        print(Fore.RED+"Aradığın kategori bulunmuyor!")
-        tekrar()
+    
 
 text = ""
-for i in "AcunMedyaAkademi Mağazasına hoşgeldin!              ":
+for i in "AcunMedyaAkademi Mağazasına hoşgeldiniz!              ":
     text = text+i
     print(Fore.CYAN+text)
     time.sleep(0.05)
